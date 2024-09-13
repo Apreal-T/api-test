@@ -3,8 +3,8 @@ name: Run Postman Collection
 on:
   push:
     branches:
-      - main  #
-  workflow_dispatch:  
+      - main  # Change this to your default branch
+  workflow_dispatch:  # Allows manual triggering from GitHub UI
 
 jobs:
   run-postman:
