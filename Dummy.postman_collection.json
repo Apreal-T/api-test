@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "db8c4aed-106e-408b-9ec0-96d7635ab0b6",
+		"name": "Dummy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19531719",
+		"_collection_link": "https://interstellar-shuttle-160987.postman.co/workspace/Switch~08ebab52-87d6-4e7c-822e-f584153f4a7a/collection/19531719-db8c4aed-106e-408b-9ec0-96d7635ab0b6?action=share&source=collection_link&creator=19531719"
+	},
+	"item": [
+		{
+			"name": "Fetch Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has the correct structure\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('status', 'success');\r",
+							"    pm.expect(jsonData).to.have.property('data').that.is.an('array');\r",
+							"   // pm.expect(jsonData).to.have.property('message', '');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Employee records contain required fields\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.length).to.be.above(0);\r",
+							"    jsonData.data.forEach(function (employee) {\r",
+							"        pm.expect(employee).to.have.property('id');\r",
+							"        pm.expect(employee).to.have.property('employee_name').that.is.a('string');\r",
+							"        pm.expect(employee).to.have.property('employee_salary');\r",
+							"        pm.expect(employee).to.have.property('employee_age');\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dummy.restapiexample.com/api/v1/employees",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "specific employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response has the correct structure for an employee\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('status', 'success');\r",
+							"    pm.expect(jsonData).to.have.property('data').that.is.an('object');\r",
+							"    pm.expect(jsonData).to.have.property('message').that.is.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Employee data contains required fields\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('id');\r",
+							"    pm.expect(jsonData.data).to.have.property('employee_name').that.is.a('string');\r",
+							"    pm.expect(jsonData.data).to.have.property('employee_salary');\r",
+							"    pm.expect(jsonData.data).to.have.property('employee_age');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dummy.restapiexample.com/api/v1/employee/1",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"1"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has the correct structure for employee creation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('status', 'success');\r",
+							"    pm.expect(jsonData).to.have.property('data').that.is.an('object');\r",
+							"    pm.expect(jsonData).to.have.property('message').that.is.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Created employee data contains required fields\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.have.property('name').that.is.a('string');\r",
+							"    pm.expect(jsonData.data).to.have.property('salary').that.is.a('string');\r",
+							"    pm.expect(jsonData.data).to.have.property('age').that.is.a('string');\r",
+							"    pm.expect(jsonData.data).to.have.property('id').that.is.a('number');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"John Doe\",\r\n  \"salary\": \"50000\",\r\n  \"age\": \"30\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dummy.restapiexample.com/api/v1/create",
+					"protocol": "https",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

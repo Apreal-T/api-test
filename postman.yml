@@ -1,0 +1,21 @@
+name: Run Postman Collection
+
+on:
+  push:
+    branches:
+      - main  # Change this to your default branch
+  workflow_dispatch:  # Allows manual triggering from GitHub UI
+
+jobs:
+  run-postman:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman Collection
+        run: newman run Dummy.postman_collection
